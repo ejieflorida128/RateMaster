@@ -102,6 +102,7 @@ $comments_result = mysqli_query($conn, $fetch_comments_query);
         <label for="star1">&#9733;</label>
       </div>
       <!-- Comment Section -->
+      <!-- new comment -->
       <div class="comments">
         <textarea name="comment_text" rows="2" cols="50" placeholder="Leave a comment"></textarea><br>
       </div>
