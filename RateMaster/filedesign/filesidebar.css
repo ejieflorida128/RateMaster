@@ -1,0 +1,46 @@
+ /* CSS for sidebar */
+ body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+.sidebar {
+    height: 100%;
+    width: 250px; /* Adjusted width to accommodate Ion icons */
+    position: fixed;
+    top: 0;
+    left: -250px; /* Initially hide the sidebar */
+    background-color: #333;
+    padding-top: 20px;
+    transition: left 0.3s; /* Smooth transition for sliding effect */
+}
+.sidebar a {
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 18px;
+    color: white;
+    display: flex; /* Align icon and text horizontally */
+    align-items: center; /* Center items vertically */
+}
+.sidebar a ion-icon {
+    margin-right: 20px; /* Adjust spacing between icon and text */
+    color: white;
+}
+.sidebar a:hover {
+    background-color: #555;
+}
+.content {
+    margin-left: 250px; /* Adjusted to match the width of the sidebar */
+    padding: 20px;
+}
+button.toggle {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: left 0.3s; /* Smooth transition for sliding effect */
+}
