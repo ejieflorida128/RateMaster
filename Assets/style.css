@@ -1,0 +1,103 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: url(../bg_image/rateme.jpg);
+    background-size: cover;
+    background-position: center;
+}
+.login-container {
+    width: 300px;
+    margin: 100px auto;
+    background-color: transparent;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.2); /* Adjust the alpha value (last parameter) for opacity */
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="password"],
+select {
+    width: 90%;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.2); /* Adjust the alpha value (last parameter) for opacity */
+    border-radius: 3px;
+}
+
+button {
+    width: 30%;
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+    background-color: #007bff;
+    color: #fff;
+    margin-left: 30%;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+.register-container {
+    max-width: 300px;
+    margin: 100px auto;
+    padding: 20px;
+    background-color: transparent;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.2); /* Adjust the alpha value (last parameter) for opacity */
+}
+
+.register-container h2 {
+    margin-top: 0;
+    text-align: center;
+}
+
+.register-container .input-group {
+    margin-bottom: 15px;
+}
+
+.register-container .input-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.register-container .input-group input[type="text"],
+.register-container .input-group input[type="password"],
+.register-container .input-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.register-container .button-group {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.register-container .button-group button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.register-container .button-group button:hover {
+    background-color: #0056b3;
+}
