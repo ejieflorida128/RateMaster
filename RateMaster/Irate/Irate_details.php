@@ -5,6 +5,43 @@ include("Irate_sidebar.php");
 // Set the number of comments per page
 $commentsPerPage = 2;
 
+// Handle form submission
+if(isset($_POST["submit"])) {
+    $user_id = 1; // Assuming user ID 1 for demonstration, you should replace this with actual user ID
+    if(isset($_POST["rating"])) {
+        // Handle rating submission
+        $Irate_id = $_POST['Irate_id'];
+        $rating = $_POST["rating"];
+        // Perform database update or insertion for rating with current timestamp
+        $insert_rating_query = "INSERT INTO Irate_ratings (Irate_id, user_id, rating, rating_date) VALUES ($Irate_id, $user_id, $rating, NOW())";
+        if(mysqli_query($conn, $insert_rating_query)) {
+            echo "Rating inserted successfully.";
+            // Update Irate table with new rating (assuming you have a rating field in Irate table)
+            $update_Irate_query = "UPDATE Irate SET rating = $rating WHERE Irate_id = $Irate_id";
+            mysqli_query($conn, $update_Irate_query);
+        } else {
+            echo "Error inserting rating: " . mysqli_error($conn);
+        }
+    }
+    if(isset($_POST["comment_text"])) {
+        // Handle comment submission
+        $Irate_id = $_POST['Irate_id'];
+        $comment_text = $_POST["comment_text"];
+        // Make sure $rating is defined here
+        $rating = isset($rating) ? $rating : 0; // Set default rating if not provided
+        // Perform database insertion for comment with current timestamp
+        $insert_comment_query = "INSERT INTO Irate_comments (Irate_id, user_id, comment_text, comment_date, rating, rating_date) VALUES ($Irate_id, $user_id, '$comment_text', NOW(), $rating, NOW())";
+        if(mysqli_query($conn, $insert_comment_query)) {
+            echo "Comment inserted successfully.";
+            // Redirect to prevent form resubmission
+            header("Location: {$_SERVER['REQUEST_URI']}");
+            exit();
+        } else {
+            echo "Error inserting comment: " . mysqli_error($conn);
+        }
+    }
+}
+
 // Retrieve Irate details from the database
 if(isset($_GET['Irate_id'])) {
     $Irate_id = $_GET['Irate_id'];
@@ -26,41 +63,6 @@ if(isset($_GET['Irate_id'])) {
     exit(); // Stop execution if Irate ID is not provided
 }
 
-// Handle form submission
-if(isset($_POST["submit"])) {
-    $user_id = 1; // Assuming user ID 1 for demonstration, you should replace this with actual user ID
-    if(isset($_POST["rating"])) {
-        // Handle rating submission
-        $rating = $_POST["rating"];
-        // Perform database update or insertion for rating with current timestamp
-        $insert_rating_query = "INSERT INTO Irate_ratings (Irate_id, user_id, rating, rating_date) VALUES ($Irate_id, $user_id, $rating, NOW())";
-        if(mysqli_query($conn, $insert_rating_query)) {
-            echo "Rating inserted successfully.";
-            // Update Irate table with new rating (assuming you have a rating field in Irate table)
-            $update_Irate_query = "UPDATE Irate SET rating = $rating WHERE Irate_id = $Irate_id";
-            mysqli_query($conn, $update_Irate_query);
-        } else {
-            echo "Error inserting rating: " . mysqli_error($conn);
-        }
-    }
-    if(isset($_POST["comment_text"])) {
-        // Handle comment submission
-        $comment_text = $_POST["comment_text"];
-        // Make sure $rating is defined here
-        $rating = isset($rating) ? $rating : 0; // Set default rating if not provided
-        // Perform database insertion for comment with current timestamp
-        $insert_comment_query = "INSERT INTO Irate_comments (Irate_id, user_id, comment_text, comment_date, rating, rating_date) VALUES ($Irate_id, $user_id, '$comment_text', NOW(), $rating, NOW())";
-        if(mysqli_query($conn, $insert_comment_query)) {
-            echo "Comment inserted successfully.";
-            // Redirect to prevent form resubmission
-            header("Location: {$_SERVER['REQUEST_URI']}");
-            exit();
-        } else {
-            echo "Error inserting comment: " . mysqli_error($conn);
-        }
-    }
-}
-
 // Calculate current page number for comments
 $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
 $offset = ($current_page - 1) * $commentsPerPage;
@@ -76,6 +78,7 @@ $comments_result = mysqli_query($conn, $fetch_comments_query);
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Irate Details</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="../Irate/Irate_design/Irate_details.css">
 </head>
 <body>
@@ -88,6 +91,7 @@ $comments_result = mysqli_query($conn, $fetch_comments_query);
   <!-- Rating and Comment Section -->
   <div class="rate-comment-section">
     <form action="" method="post">
+      <input type="hidden" name="Irate_id" value="<?php echo $Irate_id; ?>">
       <div class="rating">
         <!-- Rating Section -->
         <input type="radio" id="star5" name="rating" value="5">
@@ -148,6 +152,11 @@ $comments_result = mysqli_query($conn, $fetch_comments_query);
       <a href="javascript:history.go(-1)">Back</a>
   </div>
 </div>
+
+<!-- Bootstrap JS and jQuery (Optional) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
 </html>
