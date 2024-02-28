@@ -52,7 +52,7 @@ for ($i = 1; $i <= 5; $i++) {
 
 <!-- Ratings Overview Section -->
 <div class="main-content">
-    <h2>File Ratings Overview</h2>
+    <h2>Welcome to File Ratings Overview</h2>
     <div id="ratingsChartContainer">
         <canvas id="ratingsChart"></canvas>
     </div>

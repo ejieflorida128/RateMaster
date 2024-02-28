@@ -1,6 +1,6 @@
 <?php 
 session_start();
-include ("connection.php");
+include("connection.php");
 
 // Function to validate username and password
 function validate_credentials($username, $password, $option, $conn) {
@@ -13,6 +13,13 @@ function validate_credentials($username, $password, $option, $conn) {
     if ($result && mysqli_num_rows($result) > 0) {
         $user = mysqli_fetch_assoc($result);
         if (password_verify($password, $user['password_hash'])) {
+            $_SESSION['username'] = $username;
+            // Set option based on username
+            if ($username === 'build_admin' || $username === 'file_admin' || $username === 'Irate_admin' || $username === 'hype_admin') {
+                $_SESSION['option'] = 'admin';
+            } else {
+                $_SESSION['option'] = $option;
+            }
             return true;
         }
     }
@@ -26,12 +33,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     $option = $_POST['option'];
 
     if (validate_credentials($username, $password, $option, $conn)) {
-        $_SESSION['username'] = $username;
-        $_SESSION['option'] = $option;
         // Redirect to appropriate dashboard page based on option
-        switch ($option) {
+        switch ($_SESSION['option']) {
             case 'admin':
-                header('Location: admin_db.php');
+                header('Location: ' . $_SESSION['username'] . '.php'); // Redirect to admin's page
                 break;
             case 'buildrate':
                 header('Location: buildrate/buildratepage.php');
@@ -62,6 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     $username = $_POST['username'];
     $password = $_POST['password'];
     $selected_system = $_POST['systems'];
+    $is_admin = (in_array($username, array("build_admin", "file_admin", "Irate_admin", "hype_admin"))) ? 1 : 0;
 
     // Check if the username already exists in the database
     $sql = "SELECT * FROM users WHERE username = '$username'";
@@ -76,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
     // Insert the user's information into the database
-    $sql = "INSERT INTO users (username, password_hash, option) VALUES ('$username', '$hashed_password', '$selected_system')";
+    $sql = "INSERT INTO users (username, password_hash, option, is_admin) VALUES ('$username', '$hashed_password', '$selected_system', '$is_admin')";
     if (mysqli_query($conn, $sql)) {
         $_SESSION['success'] = 'Registration successful! Please log in.';
     } else {
@@ -86,7 +92,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     header('Location: index.php');
     exit;
 }
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -122,11 +130,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             <div class="input-group">
                 <label for="option">Options</label>
                 <select id="option" name="option" required>
-                    <option value="admin">Admin</option>
                     <option value="buildrate">BuildRate</option>
                     <option value="hypebeast">E-HypeBeast</option>
                     <option value="filerate">FileRate</option>
                     <option value="irate">I-Rate</option>
+                    <?php 
+                        // Check if the user is an administrator
+                        if (isset($_SESSION['username']) && ($_SESSION['username'] === 'admin1' || $_SESSION['username'] === 'admin2' || $_SESSION['username'] === 'admin3' || $_SESSION['username'] === 'admin4')) {
+                            echo '<option value="admin">Admin</option>';
+                        }
+                    ?>
                 </select>
             </div>
             <button type="submit">Login</button>
@@ -162,7 +175,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             <div class="input-group">
                 <label for="reg_systems">Systems:</label>
                 <select id="reg_systems" name="systems" required>
-                    <option value="selectoptions">Select Options </option>
+                    <option value="selectoptions">Admin</option>
                     <option value="buildrate">BuildRate</option>
                     <option value="hypebeast">E-HypeBeast</option>
                     <option value="filerate">FileRate</option>

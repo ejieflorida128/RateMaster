@@ -5,8 +5,12 @@ body {
     padding: 0;
   }
   .main-content {
-    max-width: 800px;
+    max-width: -50px;
     margin: 20px auto;
+    border:5px solid blue;
+    border-radius: 10px;
+    margin-top: -20px;
+   
   }
   .document-thumbnails {
     display: flex;
@@ -89,6 +93,7 @@ body {
   header {
     text-align: center; /* Align text (and inline elements) to the center */
     padding: 20px 0; /* Add some padding for better spacing */
+    font-size: larger;
   }
   
   header h1 {

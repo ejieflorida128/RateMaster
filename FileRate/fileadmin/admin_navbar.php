@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Panel</title>
+    <title>Admin Panel</title>
     <!-- Include Ion icons CSS -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <style>
@@ -16,7 +16,6 @@
         .navbar {
             overflow: hidden;
             margin-right: 900px;
-            margin-left: 50px;
             margin-top: 10px;
         }
         .navbar a {
@@ -63,9 +62,12 @@
 <body>
 
 <div class="navbar">
-    <a href="fileratepage.php"><ion-icon name="bar-chart"></ion-icon> Dashboard</a>
-    <a href="FileRating.php"><ion-icon name="star"></ion-icon> File Ratings</a>
-    <a href="../index.php"><ion-icon name="log-out"></ion-icon> Logout</a>
+    <a href="file_admin.php"><ion-icon name="bar-chart"></ion-icon> Dashboard</a>
+    <a href="file_ratings.php"><ion-icon name="star"></ion-icon> File Ratings</a>
+    <a href="activity_logs.php"><ion-icon name="document-text"></ion-icon> Activity Logs</a>
+    <a href="user_management.php"><ion-icon name="people"></ion-icon> User Management</a>
+    <a href="notification_settings.php"><ion-icon name="notifications"></ion-icon> Notification Settings</a>
+    <a href="index.php"><ion-icon name="log-out"></ion-icon> Logout</a>
 </div>
 
 <div class="content">

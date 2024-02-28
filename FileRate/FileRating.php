@@ -110,58 +110,62 @@ if(isset($_POST["submit"])) {
 </div>
 
 <div class="main-content">
-<header>
-    <h1>FIle Rate Management System</h1>
-</header>
-<div class="document-thumbnails">
-    <!-- Document Thumbnails/Grid View -->
-    <div class="row">
-        <?php
-        // Pagination variables
-        $limit = 16; // Number of documents per page
-        $page = isset($_GET['page']) ? $_GET['page'] : 1; // Current page number
-        $start = ($page - 1) * $limit; // Starting index for fetching documents
+    <header>
+        <h1>File Rate Management System</h1>
+    </header>
+    <div class="document-thumbnails">
+        <!-- Document Thumbnails/Table View -->
+        <table>
+            <tr>
+                <?php
+                // Pagination variables
+                $limit = 30; // Number of documents per page
+                $page = isset($_GET['page']) ? $_GET['page'] : 1; // Current page number
+                $start = ($page - 1) * $limit; // Starting index for fetching documents
 
-        // Query to fetch documents for the current page
-        $query = "SELECT * FROM document LIMIT $start, $limit";
-        $result = mysqli_query($conn, $query);
-        
-        // Fetch and display documents
-        $count = 0;
-        while ($row = mysqli_fetch_assoc($result)) {
-            if ($count % 4 == 0) {
-                echo '</div><div class="row">';
-            }
-            echo '<a href="docs.php?doc_id=' . $row['document_id'] . '">';
-            echo '<div class="document-thumbnail">';
-            echo '<img src="' . $row['thumbnail_url'] . '" alt="' . $row['title'] . '">';
-            echo '<h3>' . $row['title'] . '</h3>';
-            echo '</div>';
-            echo '</a>';
-            $count++;
+                // Query to fetch documents for the current page
+                $query = "SELECT * FROM document LIMIT $start, $limit";
+                $result = mysqli_query($conn, $query);
+
+                // Fetch and display documents
+                $count = 0;
+                while ($row = mysqli_fetch_assoc($result)) {
+                    if ($count % 3 == 0) {
+                        echo '</tr><tr>';
+                    }
+                    echo '<td>';
+                    echo '<a href="docs.php?doc_id=' . $row['document_id'] . '">';
+                    echo '<div class="document-thumbnail">';
+                    echo '<img src="' . $row['thumbnail_url'] . '" alt="' . $row['title'] . '">';
+                    echo '<h3>' . $row['title'] . '</h3>';
+                    echo '</div>';
+                    echo '</a>';
+                    echo '</td>';
+                    $count++;
+                }
+                ?>
+            </tr>
+        </table>
+    </div>
+
+    <div class="pagination">
+        <!-- Pagination -->
+        <?php
+        // Query to fetch total number of documents
+        $total_query = "SELECT COUNT(*) AS total FROM document";
+        $total_result = mysqli_query($conn, $total_query);
+        $total_data = mysqli_fetch_assoc($total_result);
+        $total_documents = $total_data['total'];
+
+        // Calculate total number of pages
+        $total_pages = ceil($total_documents / $limit);
+
+        // Display pagination links
+        for($i = 1; $i <= $total_pages; $i++) {
+            echo '<a href="?page=' . $i . '">' . $i . '</a>';
         }
         ?>
     </div>
-</div>
-
-<div class="pagination">
-    <!-- Pagination -->
-    <?php
-    // Query to fetch total number of documents
-    $total_query = "SELECT COUNT(*) AS total FROM document";
-    $total_result = mysqli_query($conn, $total_query);
-    $total_data = mysqli_fetch_assoc($total_result);
-    $total_documents = $total_data['total'];
-
-    // Calculate total number of pages
-    $total_pages = ceil($total_documents / $limit);
-
-    // Display pagination links
-    for($i = 1; $i <= $total_pages; $i++) {
-        echo '<a href="?page=' . $i . '">' . $i . '</a>';
-    }
-    ?>
-</div>
 </div>
 
 <script>
