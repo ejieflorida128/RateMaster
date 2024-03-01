@@ -1,2 +1,2 @@
 <?php
-include("file_sidebar.php");?>
+include("file_navbar.php");?>

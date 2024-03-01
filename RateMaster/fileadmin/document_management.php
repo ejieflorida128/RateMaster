@@ -1,7 +1,7 @@
+
 <?php
 session_start(); // Start the session
-include("../connection.php");
-include("file_navbar.php");
+include("../fileadmin/admin_navbar.php");
 
 // Check if form is submitted
 if(isset($_POST["submit"])) {
@@ -27,7 +27,8 @@ if(isset($_POST["submit"])) {
     }
 
     // Allow certain file formats
-    if($imageFileType != "pdf" && $imageFileType != "docx" && $imageFileType != "txt" && $imageFileType != "pptx" && $imageFileType != "xlsx" && $imageFileType != "ppt" && $imageFileType != "xls") {
+    $allowed_formats = array("pdf", "docx", "txt", "pptx", "xlsx", "ppt", "xls");
+    if(!in_array($imageFileType, $allowed_formats)) {
         $_SESSION['upload_status'] = "error";
         $_SESSION['upload_message'] = "Sorry, only PDF, DOCX, TXT, PPTX, PPT, XLSX, and XLS files are allowed.";
         $uploadOk = 0;
@@ -77,7 +78,7 @@ if(isset($_POST["submit"])) {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Document Management System</title>
-<link rel="stylesheet" href="../filedesign/filerate.css">
+<link rel="stylesheet" href="../filedesign/.css">
 </head>
 <body>
 

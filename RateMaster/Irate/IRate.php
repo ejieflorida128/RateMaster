@@ -1,6 +1,6 @@
 <?php
 include("../connection.php");
-include("Irate_sidebar.php");
+include("Irate_navbar.php");
 ?>
 
 <!DOCTYPE html>
@@ -14,7 +14,7 @@ include("Irate_sidebar.php");
 <body>
    
 
-    <div class="container" style="margin-top: -20px;">
+    <div class="container" style="margin-top: -10px;">
         <div class="row">
             <?php
             $sql = "SELECT * FROM items";
@@ -23,10 +23,11 @@ include("Irate_sidebar.php");
                 $pic = $check['img'];
                 $name = $check['item_name'];
                 $price = $check['item_price'];
+                $id = $check['id'];
 
             ?>
-            <div class="col-md-3"style = "margin: -12px;">
-                <div class="card" style="width: 12rem; height: 26rem; margin: 30px; box-shadow: 0 4px 8px rgba(4, 4, 4, 1.1); position: relative; left: 170px;">
+            <div class="col-md-18"style = "margin: -12px;">
+                <div class="card" style="width: 12rem; height: 26rem; margin: 30px; box-shadow: 0 4px 8px rgba(4, 4, 4, 1.1); position: relative; left: 100px;">
                     <img src="<?php echo $pic; ?>" class="card-img-top" style="height: 190px; width: 190px;">
                     <div class="card-body">
                         <h5 class="card-title" style = "font-size:12px;"><?php echo $name; ?></h5>
@@ -40,7 +41,7 @@ include("Irate_sidebar.php");
                                         
                                                 
                                         -->
-                                        <a href = "#" class = "btn btn-success">Rate</a>
+                                        <a href = 'Irate_details.php?item_id=<?php echo $id; ?>' class = "btn btn-success">Rate</a>
                                 </div>
                                 <div class="sec2">
 

@@ -1,0 +1,69 @@
+/* CSS for Document Management */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.document-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.document-list li {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.document-list li .document-info {
+    flex-grow: 1;
+}
+
+.document-list li .actions {
+    margin-left: 10px;
+}
+
+.actions a {
+    color: #007bff;
+    text-decoration: none;
+    margin-right: 5px;
+}
+
+.actions a:hover {
+    text-decoration: underline;
+}
+
+.actions a.delete {
+    color: red;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+label.upload-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+label.upload-btn:hover {
+    background-color: #0056b3;
+}

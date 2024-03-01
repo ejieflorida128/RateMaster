@@ -1,162 +1,67 @@
 <?php
 include("../connection.php");
-include("Irate_sidebar.php");
-
-// Set the number of comments per page
-$commentsPerPage = 2;
-
-// Handle form submission
-if(isset($_POST["submit"])) {
-    $user_id = 1; // Assuming user ID 1 for demonstration, you should replace this with actual user ID
-    if(isset($_POST["rating"])) {
-        // Handle rating submission
-        $Irate_id = $_POST['Irate_id'];
-        $rating = $_POST["rating"];
-        // Perform database update or insertion for rating with current timestamp
-        $insert_rating_query = "INSERT INTO Irate_ratings (Irate_id, user_id, rating, rating_date) VALUES ($Irate_id, $user_id, $rating, NOW())";
-        if(mysqli_query($conn, $insert_rating_query)) {
-            echo "Rating inserted successfully.";
-            // Update Irate table with new rating (assuming you have a rating field in Irate table)
-            $update_Irate_query = "UPDATE Irate SET rating = $rating WHERE Irate_id = $Irate_id";
-            mysqli_query($conn, $update_Irate_query);
-        } else {
-            echo "Error inserting rating: " . mysqli_error($conn);
-        }
-    }
-    if(isset($_POST["comment_text"])) {
-        // Handle comment submission
-        $Irate_id = $_POST['Irate_id'];
-        $comment_text = $_POST["comment_text"];
-        // Make sure $rating is defined here
-        $rating = isset($rating) ? $rating : 0; // Set default rating if not provided
-        // Perform database insertion for comment with current timestamp
-        $insert_comment_query = "INSERT INTO Irate_comments (Irate_id, user_id, comment_text, comment_date, rating, rating_date) VALUES ($Irate_id, $user_id, '$comment_text', NOW(), $rating, NOW())";
-        if(mysqli_query($conn, $insert_comment_query)) {
-            echo "Comment inserted successfully.";
-            // Redirect to prevent form resubmission
-            header("Location: {$_SERVER['REQUEST_URI']}");
-            exit();
-        } else {
-            echo "Error inserting comment: " . mysqli_error($conn);
-        }
-    }
-}
-
-// Retrieve Irate details from the database
-if(isset($_GET['Irate_id'])) {
-    $Irate_id = $_GET['Irate_id'];
-    $query = "SELECT * FROM Irate WHERE Irate_id = $Irate_id";
-    $result = mysqli_query($conn, $query);
-    if(mysqli_num_rows($result) > 0) {
-        $row = mysqli_fetch_assoc($result);
-        $Irate_title = $row['title'];
-        $thumbnail_url = $row['thumbnail_url'];
-        // You can fetch other Irate details as needed
-    } else {
-        // Handle case when Irate ID is not found
-        echo "Irate not found.";
-        exit(); // Stop execution if Irate ID is invalid
-    }
-} else {
-    // Handle case when Irate ID is not provided
-    echo "Irate ID is required.";
-    exit(); // Stop execution if Irate ID is not provided
-}
-
-// Calculate current page number for comments
-$current_page = isset($_GET['page']) ? $_GET['page'] : 1;
-$offset = ($current_page - 1) * $commentsPerPage;
-
-// Fetch comments from the database for this Irate with pagination
-$fetch_comments_query = "SELECT * FROM Irate_comments WHERE Irate_id = $Irate_id LIMIT $commentsPerPage OFFSET $offset";
-$comments_result = mysqli_query($conn, $fetch_comments_query);
+include("Irate_navbar.php");
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Irate Details</title>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="../Irate/Irate_design/Irate_details.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rate Details</title>
+    <style>
+        .rating {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: center;
+        }
+        .star {
+            cursor: pointer;
+            text-shadow: 1px 1px 1px #000;
+        }
+        input[type=radio] {
+            display: none;
+        }
+        label:before {
+            content: '★';
+            color: gray;
+        }
+        input[type=radio]:checked ~ label:before {
+            color: gold;
+        }
+    </style>
 </head>
 <body>
 
-<div class="Irate-details">
-  <h1><?php echo $Irate_title; ?></h1>
-  <!-- Irate Thumbnail -->
-  <img src="<?php echo $thumbnail_url; ?>" alt="<?php echo $Irate_title; ?>">
-  
-  <!-- Rating and Comment Section -->
-  <div class="rate-comment-section">
-    <form action="" method="post">
-      <input type="hidden" name="Irate_id" value="<?php echo $Irate_id; ?>">
-      <div class="rating">
-        <!-- Rating Section -->
-        <input type="radio" id="star5" name="rating" value="5">
-        <label for="star5">&#9733;</label>
-        <input type="radio" id="star4" name="rating" value="4">
-        <label for="star4">&#9733;</label>
-        <input type="radio" id="star3" name="rating" value="3">
-        <label for="star3">&#9733;</label>
-        <input type="radio" id="star2" name="rating" value="2">
-        <label for="star2">&#9733;</label>
-        <input type="radio" id="star1" name="rating" value="1">
-        <label for="star1">&#9733;</label>
-      </div>
-      <!-- Comment Section -->
-      <div class="comments">
-        <textarea name="comment_text" rows="2" cols="50" placeholder="Leave a comment"></textarea><br>
-      </div>
-      <input type="submit" name="submit" value="Submit">
-    </form>
-    <div class="comments">
-      <!-- Comments/Reviews -->
-      <h2>Comments</h2>
-      <?php
-      while ($comment_row = mysqli_fetch_assoc($comments_result)) {
-          echo '<div class="comment">';
-          echo '<p>' . $comment_row['comment_text'] . '</p>';
-          echo '<p>Rating: ' . $comment_row['rating'] . '</p>';
-          echo '<p>Comment Date: ' . $comment_row['comment_date'] . '</p>';
-          echo '</div>';
-      }
-      ?>
-    </div>
     <?php
-    // Add pagination links
-    $total_comments_query = "SELECT COUNT(*) AS total_comments FROM Irate_comments WHERE Irate_id = $Irate_id";
-    $total_comments_result = mysqli_query($conn, $total_comments_query);
-    $total_comments_row = mysqli_fetch_assoc($total_comments_result);
-    $total_comments = $total_comments_row['total_comments'];
-    $total_pages = ceil($total_comments / $commentsPerPage);
+    $id = $_GET['item_id'];
+    $sql = "SELECT * FROM items WHERE id = $id";
+    $query=mysqli_query($connForEjie,$sql);
 
-    if ($total_pages > 1) {
-        echo "<div class='pagination'>";
-        if ($current_page > 1) {
-            echo "<a href='?Irate_id=$Irate_id&page=" . ($current_page - 1) . "'>Previous</a>";
-        }
-        for ($i = 1; $i <= $total_pages; $i++) {
-            echo "<a href='?Irate_id=$Irate_id&page=$i'>$i</a>";
-        }
-        if ($current_page < $total_pages) {
-            echo "<a href='?Irate_id=$Irate_id&page=" . ($current_page + 1) . "'>Next</a>";
-        }
-        echo "</div>";
+    while($test = mysqli_fetch_assoc($query)){
+    ?>
+
+    <img src="<?php echo $test['img']; ?>" style = "width: 400px; height: 400px; margin-left: 400px;">
+    <h4 style = "margin-left: 400px;"><?php echo $test['item_name'] ?></h4>
+    <h4 style = "margin-left: 400px;"><?php echo $test['item_price'] ?></h4>
+    <h4 style = "margin-left: 400px;"><?php echo $test['item_source'] ?></h4>
+    <h4 style = "margin-left: 400px;"><?php echo $test['seller'] ?></h4>
+    <h4 style = "margin-left: 400px;">Seller Id: <?php echo $test['SellerId'] ?></h4>
+
+    <form action="Irate_details.php" method="post" style = "margin-left: 400px;">
+        <div class="rating">
+            <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5 stars" class="star">☆</label>
+            <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 stars" class="star">☆</label>
+            <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 stars" class="star">☆</label>
+            <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 stars" class="star">☆</label>
+            <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star" class="star">☆</label>
+        </div>
+        <input type="hidden" name="item_id" value="<?php echo $id; ?>">
+        <button type="submit">Submit Rating</button>
+    </form>
+
+    <?php
     }
     ?>
-  </div>
-  <!-- Back button -->
-  <div class="back-button">
-      <a href="javascript:history.go(-1)">Back</a>
-  </div>
-</div>
-
-<!-- Bootstrap JS and jQuery (Optional) -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
 </html>

@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                 header('Location: FileRate/fileratepage.php');
                 break;
             case 'irate':
-                header('Location: Irate/Iratepage.php');
+                header('Location: Irate/Irate_navbar.php');
                 break;
             default:
                 header('Location: index.php');

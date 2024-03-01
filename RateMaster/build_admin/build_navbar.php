@@ -1,9 +1,10 @@
+<?php ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel</title>
+    <title>Build Rate Management - Admin Panel</title>
     <!-- Include Ion icons CSS -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <style>
@@ -15,7 +16,8 @@
         }
         .navbar {
             overflow: hidden;
-            margin-right: 900px;
+            margin-right: 50px;
+            margin-left: 50px;
             margin-top: 10px;
         }
         .navbar a {
@@ -62,12 +64,13 @@
 <body>
 
 <div class="navbar">
-    <a href="file_admin.php"><ion-icon name="bar-chart"></ion-icon> Dashboard</a>
-    <a href="file_ratings.php"><ion-icon name="star"></ion-icon> File Ratings</a>
-    <a href="activity_logs.php"><ion-icon name="document-text"></ion-icon> Activity Logs</a>
-    <a href="user_management.php"><ion-icon name="people"></ion-icon> User Management</a>
-    <a href="notification_settings.php"><ion-icon name="notifications"></ion-icon> Notification Settings</a>
-    <a href="index.php"><ion-icon name="log-out"></ion-icon> Logout</a>
+    <a href="build_admin.php"><ion-icon name="bar-chart"></ion-icon> Dashboard</a>
+    <a href="build_admin/build_management.php"><ion-icon name="document"></ion-icon> Building Management</a>
+    <a href="build_admin/buildrate_management.php"><ion-icon name="construct"></ion-icon> Build Rate Management</a>
+    <a href="build_admin/activity_logs.php"><ion-icon name="clipboard"></ion-icon> Activity Logs</a>
+    <a href="build_admin/user_management.php"><ion-icon name="people"></ion-icon> User Management</a>
+    <a href="build_admin/notification.php"><ion-icon name="notifications"></ion-icon> Notification System</a>
+    <a href="logout.php"><ion-icon name="log-out"></ion-icon> Logout</a>
 </div>
 
 <div class="content">

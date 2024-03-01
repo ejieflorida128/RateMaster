@@ -1,2 +1,2 @@
 <?php
-include("FileRate/fileadmin/admin_navbar.php"); ?>
+include("fileadmin/admin_navbar.php"); ?>

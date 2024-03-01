@@ -1,6 +1,6 @@
 <?php
 include("../connection.php");
-include("file_sidebar.php");
+include("file_navbar.php");
 
 // Set the number of comments per page
 $commentsPerPage = 2;
