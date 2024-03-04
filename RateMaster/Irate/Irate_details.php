@@ -12,13 +12,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $update_result = mysqli_query($connForEjie, $update_query);
 
         if ($update_result) {
-            echo "Rating submitted successfully!";
+            header('Location: Irate.php');
+           
         } else {
             echo "Error updating rating: " . mysqli_error($connForEjie);
         }
-    } else {
-        echo "Error: Item ID or rating not provided.";
-    }
+
+        
+    } 
 }
 ?>
 
@@ -86,9 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
            echo "Error: Item not found.";
         }
-    } else {
-        echo "Error: Item ID not provided.";
-    }
+    } 
     ?>
 
 </body>
