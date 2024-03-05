@@ -1,4 +1,13 @@
 -- phpMyAdmin SQL Dump
+<<<<<<< HEAD
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Mar 04, 2024 at 04:13 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
+=======
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
@@ -6,6 +15,7 @@
 -- Generation Time: Feb 27, 2024 at 03:24 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
+>>>>>>> 6a2e4cc0f45f6e9db69bb50624eb6a0fa6013cea
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -196,7 +206,14 @@ INSERT INTO `commento` (`comment_id`, `document_id`, `user_id`, `comment_text`, 
 (52, 24, 1, 'SDGSDG', 4, '2024-02-24 13:42:23', '2024-02-24 13:42:23'),
 (53, 29, 1, 'wetwet', 4, '2024-02-26 15:04:39', '2024-02-26 15:04:39'),
 (54, 33, 1, 'sdfsd', 1, '2024-02-27 00:05:43', '2024-02-27 00:05:43'),
+<<<<<<< HEAD
+(55, 25, 1, 'ISFOWID', 5, '2024-02-27 15:07:11', '2024-02-27 15:07:11'),
+(56, 24, 1, 'asfasdf', 4, '2024-02-28 01:55:12', '2024-02-28 01:55:12'),
+(57, 24, 1, 'sadfd', 4, '2024-02-28 01:55:29', '2024-02-28 01:55:29'),
+(58, 32, 1, 'lsakdfal;sd', 4, '2024-03-01 23:10:26', '2024-03-01 23:10:26');
+=======
 (55, 25, 1, 'ISFOWID', 5, '2024-02-27 15:07:11', '2024-02-27 15:07:11');
+>>>>>>> 6a2e4cc0f45f6e9db69bb50624eb6a0fa6013cea
 
 -- --------------------------------------------------------
 
@@ -228,7 +245,11 @@ INSERT INTO `document` (`document_id`, `file_type`, `title`, `description`, `thu
 (29, '', 'XYZ-Restaurant-Risk-Management-Plan.docx', 'Description of the uploaded file goes here.', 'thumbnails/default_thumbnail.jpg', 4, '2024-02-24 08:25:32', 'powerpoint'),
 (30, '', 'SUGANOB, EDROSE A.-Activity-5.docx', 'Description of the uploaded file goes here.', 'thumbnails/default_thumbnail.jpg', 0, '2024-02-24 08:28:03', ''),
 (31, '', 'TABULATED DATA.xlsx', 'Description of the uploaded file goes here.', 'thumbnails/default_thumbnail.jpg', 0, '2024-02-24 08:30:23', ''),
+<<<<<<< HEAD
+(32, '', 'APPROVAL-SHEET.docx', 'Description of the uploaded file goes here.', 'thumbnails/default_thumbnail.jpg', 4, '2024-02-24 08:35:50', ''),
+=======
 (32, '', 'APPROVAL-SHEET.docx', 'Description of the uploaded file goes here.', 'thumbnails/default_thumbnail.jpg', 0, '2024-02-24 08:35:50', ''),
+>>>>>>> 6a2e4cc0f45f6e9db69bb50624eb6a0fa6013cea
 (33, '', 'EDROSE.docx', 'Description of the uploaded file goes here.', 'thumbnails/default_thumbnail.jpg', 1, '2024-02-24 08:38:11', ''),
 (34, '', 'Excuse Letter.docx', 'Description of the uploaded file goes here.', 'thumbnails/default_thumbnail.jpg', 0, '2024-02-24 08:44:00', ''),
 (35, '', 'Theoretical-Framework.docx', 'Description of the uploaded file goes here.', 'thumbnails/default_thumbnail.jpg', 0, '2024-02-24 08:46:25', ''),
@@ -407,6 +428,32 @@ INSERT INTO `irate_ratings` (`rating_id`, `Irate_id`, `user_id`, `rating`, `rati
 -- --------------------------------------------------------
 
 --
+<<<<<<< HEAD
+-- Table structure for table `log`
+--
+
+CREATE TABLE `log` (
+  `id` int(11) NOT NULL,
+  `type` varchar(255) NOT NULL,
+  `message` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `log`
+--
+
+INSERT INTO `log` (`id`, `type`, `message`) VALUES
+(5, 'irate', 'A user Rate an item in the E-Cloth All in shopper Management System!'),
+(6, 'irate', 'A user Rate an item in the E-Cloth All in shopper Management System!'),
+(7, 'build', 'A user rated an item in the Real Estate and Resources Management Platform!'),
+(8, 'build', 'A user rated an item in the Real Estate and Resources Management Platform!'),
+(9, 'hype', 'A user rated an item in the E Hype Beast Shop Management System!');
+
+-- --------------------------------------------------------
+
+--
+=======
+>>>>>>> 6a2e4cc0f45f6e9db69bb50624eb6a0fa6013cea
 -- Table structure for table `rating`
 --
 
@@ -454,7 +501,14 @@ INSERT INTO `rating` (`rating_id`, `document_id`, `user_id`, `rating`, `rating_d
 (29, 24, 1, 4, '2024-02-24 13:42:23'),
 (30, 29, 1, 4, '2024-02-26 15:04:39'),
 (31, 33, 1, 1, '2024-02-27 00:05:43'),
+<<<<<<< HEAD
+(32, 25, 1, 5, '2024-02-27 15:07:11'),
+(33, 24, 1, 4, '2024-02-28 01:55:12'),
+(34, 24, 1, 4, '2024-02-28 01:55:29'),
+(35, 32, 1, 4, '2024-03-01 23:10:26');
+=======
 (32, 25, 1, 5, '2024-02-27 15:07:11');
+>>>>>>> 6a2e4cc0f45f6e9db69bb50624eb6a0fa6013cea
 
 -- --------------------------------------------------------
 
@@ -487,18 +541,40 @@ CREATE TABLE `users` (
   `user_id` int(11) NOT NULL,
   `username` varchar(255) NOT NULL,
   `password_hash` varchar(255) NOT NULL,
+<<<<<<< HEAD
+  `option` varchar(50) NOT NULL,
+  `is_admin` tinyint(1) DEFAULT 0
+=======
   `option` varchar(50) NOT NULL
+>>>>>>> 6a2e4cc0f45f6e9db69bb50624eb6a0fa6013cea
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
+<<<<<<< HEAD
+INSERT INTO `users` (`user_id`, `username`, `password_hash`, `option`, `is_admin`) VALUES
+(1, 'laboy', '$2y$10$BNk3Zlxw6PqZQY636CkKYOrbSXybTiJdhwLwiMztuP1YyEfk.AOta', 'filerate', 0),
+(15, 'build_admin', '$2y$10$0yroAwFgdGTM0hGN8Zqw3.CMzbIbC951QKqJfln/SHK7R/6HQZNne', 'selectoptions', 1),
+(16, 'file_admin', '$2y$10$ixisIpqM5ym/V6wa2zUtOOLcJe24lJKjXUrbCVVT7bGfHDEXlaZ4q', 'selectoptions', 1),
+(17, 'Irate_admin', '$2y$10$6yxMmbR4i58WmxZtpRgTKOaJnSQOJLRT2b3zsYcB74sPzq.wtyeca', 'selectoptions', 1),
+(18, 'hype_admin', '$2y$10$DCNY2yKK53mp6p3ChftQyOe2CGHSHEpAFVARvHDeASU6hsI2sEN/m', 'selectoptions', 1),
+(19, 'jonna', '$2y$10$zMAsyG1NGKoDLbfXWQ6IqeXn/rc4XR.7DqZQKs34qR6ie8XMaRgh2', 'irate', 0),
+(20, 'jonna1', '$2y$10$ivWo/5p8WUS2Lb0Yqe.iEup1.qqyIR515cTDocdKiP9WLe6vxtxPm', 'irate', 0),
+(21, 'jonna2', '$2y$10$HzYUlksVvkGxhTQ0prFdbemo/Y9zDg0rwPbyYuhbxJDbLdLdc9E1i', 'irate', 0),
+(23, 'joy1', '$2y$10$PxKv.H2W3CnKeBCc22SI8.DuiJD4TfiwgqfdY1OeVTze50khqTIn.', 'buildrate', 0),
+(24, 'joy2', '$2y$10$n6VaT1EAUgE3YYGqzsH9y.vn.1pLOrInlO5T74B/8qlIQAdwkTOEG', 'buildrate', 0),
+(25, 'jemma', '$2y$10$o2xhQa32NCb/wMFN5Ptah.bIWLnILdCN9HVkVia1bjAFOGqml/XCq', 'hypebeast', 0),
+(26, 'jemma1', '$2y$10$iokQU6rP/DdmQXt/a50Y2ukuF.fS/k30D3nmHgVA00qsQLenbRDYa', 'hypebeast', 0),
+(27, 'jemma2', '$2y$10$b09mCW0rRDB1HzWmSi5xZOn2Tkmz5Vr9YjJJyb7.g5YV1DpeG4oz6', 'hypebeast', 0);
+=======
 INSERT INTO `users` (`user_id`, `username`, `password_hash`, `option`) VALUES
 (1, 'laboy', '$2y$10$BNk3Zlxw6PqZQY636CkKYOrbSXybTiJdhwLwiMztuP1YyEfk.AOta', 'filerate'),
 (2, 'jonna', '$2y$10$OxvOkY4nwYUWxq8PApUfieY1sQ0RqyfLIj90shKasgrnRjcDfqPvq', 'irate'),
 (3, 'jemma', '$2y$10$g3cVv6bLsbQSaWNgda2Pmep9ISxacvZV.VCvsthrcpvFLENEDUksK', 'hypebeast'),
 (4, 'joy', '$2y$10$MhchphoqgG2dUXld.XQ2Z.Uwctwu0GGOFsWy8tCuKnZRd0600M5Fe', 'buildrate');
+>>>>>>> 6a2e4cc0f45f6e9db69bb50624eb6a0fa6013cea
 
 --
 -- Indexes for dumped tables
@@ -595,6 +671,15 @@ ALTER TABLE `irate_ratings`
   ADD KEY `user_id` (`user_id`);
 
 --
+<<<<<<< HEAD
+-- Indexes for table `log`
+--
+ALTER TABLE `log`
+  ADD PRIMARY KEY (`id`);
+
+--
+=======
+>>>>>>> 6a2e4cc0f45f6e9db69bb50624eb6a0fa6013cea
 -- Indexes for table `rating`
 --
 ALTER TABLE `rating`
@@ -646,7 +731,11 @@ ALTER TABLE `building_ratings`
 -- AUTO_INCREMENT for table `commento`
 --
 ALTER TABLE `commento`
+<<<<<<< HEAD
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+=======
   MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+>>>>>>> 6a2e4cc0f45f6e9db69bb50624eb6a0fa6013cea
 
 --
 -- AUTO_INCREMENT for table `document`
@@ -697,10 +786,23 @@ ALTER TABLE `irate_ratings`
   MODIFY `rating_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
+<<<<<<< HEAD
+-- AUTO_INCREMENT for table `log`
+--
+ALTER TABLE `log`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `rating`
+--
+ALTER TABLE `rating`
+  MODIFY `rating_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+=======
 -- AUTO_INCREMENT for table `rating`
 --
 ALTER TABLE `rating`
   MODIFY `rating_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+>>>>>>> 6a2e4cc0f45f6e9db69bb50624eb6a0fa6013cea
 
 --
 -- AUTO_INCREMENT for table `uploaded_files`
@@ -712,7 +814,11 @@ ALTER TABLE `uploaded_files`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
+<<<<<<< HEAD
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+=======
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+>>>>>>> 6a2e4cc0f45f6e9db69bb50624eb6a0fa6013cea
 
 --
 -- Constraints for dumped tables
@@ -733,6 +839,8 @@ ALTER TABLE `building_ratings`
   ADD CONSTRAINT `building_ratings_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 
 --
+<<<<<<< HEAD
+=======
 -- Constraints for table `commento`
 --
 ALTER TABLE `commento`
@@ -740,10 +848,13 @@ ALTER TABLE `commento`
   ADD CONSTRAINT `commento_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 
 --
+>>>>>>> 6a2e4cc0f45f6e9db69bb50624eb6a0fa6013cea
 -- Constraints for table `e_hype_comments`
 --
 ALTER TABLE `e_hype_comments`
   ADD CONSTRAINT `e_hype_comments_ibfk_1` FOREIGN KEY (`E_hype_id`) REFERENCES `e_hypebeast` (`E_hype_id`);
+<<<<<<< HEAD
+=======
 
 --
 -- Constraints for table `e_hype_ratings`
@@ -771,6 +882,7 @@ ALTER TABLE `irate_ratings`
 ALTER TABLE `rating`
   ADD CONSTRAINT `rating_ibfk_1` FOREIGN KEY (`document_id`) REFERENCES `document` (`document_id`),
   ADD CONSTRAINT `rating_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
+>>>>>>> 6a2e4cc0f45f6e9db69bb50624eb6a0fa6013cea
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -1,6 +1,6 @@
 <?php
 include("../connection.php");
-include("E_hype_navbar.php");
+include("build_sidebar.php");
 ?>
 
 <!DOCTYPE html>
@@ -14,21 +14,20 @@ include("E_hype_navbar.php");
 <body>
    
 
-    <div class="container" style="margin-top: -10px;">
+    <div class="container" style="margin-top: -20px;">
         <div class="row">
             <?php
-            $sql = "SELECT * FROM product";
+            $sql = "SELECT * FROM propertylist";
             $query = mysqli_query($connForEjie,$sql);
             while($check = mysqli_fetch_assoc($query)){
-                $pic = $check['image'];
-                $name = $check['item_name'];
+                $pic = $check['image1'];
+                $name = $check['title'];
                 $price = $check['price'];
-                $id = $check['id'];
 
             ?>
-            <div class="col-md-18"style = "margin: -12px;">
-                <div class="card" style="width: 12rem; height: 26rem; margin: 30px; box-shadow: 0 4px 8px rgba(4, 4, 4, 1.1); position: relative; left: 100px;">
-                    <img src="../images/<?php echo $pic; ?>" class="card-img-top" style="height: 190px; width: 190px;">
+            <div class="col-md-3"style = "margin: -12px;">
+                <div class="card" style="width: 12rem; height: 18rem; margin: 30px; box-shadow: 0 4px 8px rgba(4, 4, 4, 1.1); position: relative; left: 170px;">
+                    <img src="<?php echo $pic; ?>" class="card-img-top" style="height: 190px; width: 190px;">
                     <div class="card-body">
                         <h5 class="card-title" style = "font-size:12px;"><?php echo $name; ?></h5>
                         <h5 class="card-title" style = "font-size:12px;">$<?php echo $price; ?></h5>
@@ -36,12 +35,11 @@ include("E_hype_navbar.php");
                                 <div class="sec1">
                                             <!-- aria loblee butange ne ug kadtong rate rate na function aria dapita
 
-                                                                                    -ejie feb 28 2024
-
+                                                                                    -ejie March 1 2024
+                                        
                                         
                                                 
                                         -->
-                                        <a href = 'E_hype_details.php?Hype_Id=<?php echo $id; ?>' class = "btn btn-success">Rate</a>
                                 </div>
                                 <div class="sec2">
 

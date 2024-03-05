@@ -1,0 +1,76 @@
+.rateText{
+    font-size: 80px;
+    color: white;
+    position: relative;
+    top: 50px;
+}
+
+.components{
+    display: flex;
+    margin-left: 80px;
+    margin-top: 60px;
+}
+
+
+.box{
+    box-shadow: 0 4px 8px rgba(4, 4, 4, 1.1);
+    width: 320px;
+    height: 300px;
+    margin: 40px;
+    background-color: white;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.title{
+    display: flex;
+    margin-left: -60px;
+    padding: 20px;
+    margin-top: 30px;
+    
+}
+
+.title h1{
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    margin-left: 70px;
+}
+
+.icon{
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+
+}
+
+.dis h6{
+    font-size: 10px;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.title,.dis{
+    color: rgb(73, 73, 73);
+}
+
+.box:hover{
+    background-color: black;  
+}
+
+.box:hover .title,.box:hover .dis,.box:hover .icon{
+
+    color: white;
+
+}
+
+.section2 a, .section1 a, .section3 a{
+    text-decoration: none;
+}
+
+body{
+    height: 100vh;
+    overflow-y: hidden;
+}
+
