@@ -7,9 +7,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $item_id = mysqli_real_escape_string($connForEjie, $_POST['item_id']);
         $rating = mysqli_real_escape_string($connForEjie, $_POST['rating']);
 
+        
+
+       
+
         // Update the item's rating in the items table
         $update_query = "UPDATE items SET rate = '$rating' WHERE id = '$item_id'";
         $update_result = mysqli_query($connForEjie, $update_query);
+
+        $txt = "A user Rate an item in the E-Cloth All in shopper Management System!";
+
+        $insertLog = "INSERT INTO log (type,message) VALUES ('irate','$txt')";
+        mysqli_query($conn,$insertLog);
+
+        
+      
 
         if ($update_result) {
             header('Location: Irate.php');

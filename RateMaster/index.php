@@ -32,11 +32,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     $password = $_POST['password'];
     $option = $_POST['option'];
 
+    $_SESSION['Data'] = $_POST['username'];
+
     if (validate_credentials($username, $password, $option, $conn)) {
         // Redirect to appropriate dashboard page based on option
         switch ($_SESSION['option']) {
             case 'admin':
-                header('Location: ' . $_SESSION['username'] . '.php'); // Redirect to admin's page
+                header('Location: ADMIN_FILES/' . $_SESSION['username'] . '.php'); // Redirect to admin's page
                 break;
             case 'buildrate':
                 header('Location: buildrate/buildratepage.php');

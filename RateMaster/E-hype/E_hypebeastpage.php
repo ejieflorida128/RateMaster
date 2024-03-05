@@ -1,3 +1,3 @@
 <?php
 include("../connection.php");
-include("E_hype_sidebar.php"); ?>
+include("E_hype_navbar.php"); ?>

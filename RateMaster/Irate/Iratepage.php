@@ -1,4 +1,4 @@
 <?php
 include("../connection.php");
-include("../Irate/Irate_navbar.php");
+include("../buildrate/Irate_navbar.php");
 ?>

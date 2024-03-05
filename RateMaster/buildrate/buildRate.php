@@ -1,6 +1,6 @@
 <?php
 include("../connection.php");
-include("build_sidebar.php");
+include("buildrate_navbar.php");
 ?>
 
 <!DOCTYPE html>
@@ -23,10 +23,11 @@ include("build_sidebar.php");
                 $pic = $check['image1'];
                 $name = $check['title'];
                 $price = $check['price'];
+                $id = $check['id'];
 
             ?>
             <div class="col-md-3"style = "margin: -12px;">
-                <div class="card" style="width: 12rem; height: 18rem; margin: 30px; box-shadow: 0 4px 8px rgba(4, 4, 4, 1.1); position: relative; left: 170px;">
+                <div class="card" style="width: 12rem; height: 20rem; margin: 30px; box-shadow: 0 4px 8px rgba(4, 4, 4, 1.1); position: relative; left: 170px;">
                     <img src="<?php echo $pic; ?>" class="card-img-top" style="height: 190px; width: 190px;">
                     <div class="card-body">
                         <h5 class="card-title" style = "font-size:12px;"><?php echo $name; ?></h5>
@@ -40,6 +41,8 @@ include("build_sidebar.php");
                                         
                                                 
                                         -->
+
+                                        <a href = 'build_details.php?building_id=<?php echo $id; ?>' class = "btn btn-success">Rate</a>
                                 </div>
                                 <div class="sec2">
 

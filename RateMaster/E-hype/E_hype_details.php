@@ -1,159 +1,97 @@
 <?php
 include("../connection.php");
-include("E_hype_sidebar.php");
+include("E_hype_navbar.php");
 
-// Set the number of comments per page
-$commentsPerPage = 2;
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if(isset($_POST['E_HYpe_Id']) && isset($_POST['rating'])) {
+        $E_HYpe_Id = $_POST['E_HYpe_Id'];
+        $rating = $_POST['rating'];
 
-// Retrieve E_hype details from the database
-if(isset($_GET['E_hype_id'])) {
-    $E_hype_id = $_GET['E_hype_id'];
-    $query = "SELECT * FROM E_hypebeast WHERE E_hype_id = $E_hype_id";
-    $result = mysqli_query($conn, $query);
-    if(mysqli_num_rows($result) > 0) {
-        $row = mysqli_fetch_assoc($result);
-        $E_hype_title = $row['title'];
-        $thumbnail_url = $row['thumbnail_url'];
-        // You can fetch other E_hype details as needed
-    } else {
-        // Handle case when E_hype ID is not found
-        echo "E_hype not found.";
-        exit(); // Stop execution if E_hype ID is invalid
-    }
-} else {
-    // Handle case when E_hype ID is not provided
-    echo "E_hype ID is required.";
-    exit(); // Stop execution if E_hype ID is not provided
-}
+        // Update the item's rating in the items table
+        $update_query = "UPDATE product SET rate = '$rating' WHERE id = $E_HYpe_Id";
+        $update_result = mysqli_query($connForEjie, $update_query);
 
-// Handle form submission
-if(isset($_POST["submit"])) {
-    $user_id = 1; // Assuming user ID 1 for demonstration, you should replace this with actual user ID
-    if(isset($_POST["rating"])) {
-        // Handle rating submission
-        $rating = $_POST["rating"];
-        // Perform database update or insertion for rating with current timestamp
-        $insert_rating_query = "INSERT INTO E_hype_ratings (E_hype_id, user_id, rating, rating_date) VALUES ($E_hype_id, $user_id, $rating, NOW())";
-        if(mysqli_query($conn, $insert_rating_query)) {
-            echo "Rating inserted successfully.";
-            // Update E_hypebeast table with new rating (assuming you have a rating field in E_hypebeast table)
-            $update_E_hype_query = "UPDATE E_hypebeast SET rating = $rating WHERE E_hype_id = $E_hype_id";
-            mysqli_query($conn, $update_E_hype_query);
+        $txt = "A user rated an item in the E Hype Beast Shop Management System!";
+
+        $insertLog = "INSERT INTO log (type,message) VALUES ('hype','$txt')";
+        mysqli_query($conn,$insertLog);
+
+        if ($update_result) {
+            header('Location: E_hypeRate.php');
+            exit; // Stop further execution after redirection
         } else {
-            echo "Error inserting rating: " . mysqli_error($conn);
+            echo "Error updating rating: " . mysqli_error($connForEjie);
         }
-    }
+    } 
 }
-
-if(isset($_POST["submit"])) {
-    $user_id = 1; // Assuming user ID 1 for demonstration, you should replace this with actual user ID
-    
-    // Set a default rating if not provided in the form submission
-    $rating = isset($_POST["rating"]) ? $_POST["rating"] : 0;
-    
-    // Handle comment submission
-    if(isset($_POST["comment_text"])) {
-        $comment_text = $_POST["comment_text"];
-        // Perform database insertion for comment with current timestamp
-        $insert_comment_query = "INSERT INTO E_hype_comments (E_hype_id, user_id, comment_text, comment_date, rating, rating_date) VALUES ($E_hype_id, $user_id, '$comment_text', NOW(), $rating, NOW())";
-        if(mysqli_query($conn, $insert_comment_query)) {
-            echo "Comment inserted successfully.";
-            // Redirect to prevent form resubmission
-            header("Location: {$_SERVER['REQUEST_URI']}");
-            exit();
-        } else {
-            echo "Error inserting comment: " . mysqli_error($conn);
-        }
-    }
-}
-// Calculate current page number for comments
-$current_page = isset($_GET['page']) ? $_GET['page'] : 1;
-$offset = ($current_page - 1) * $commentsPerPage;
-
-// Fetch comments from the database for this E_hype with pagination
-$fetch_comments_query = "SELECT * FROM E_hype_comments WHERE E_hype_id = $E_hype_id LIMIT $commentsPerPage OFFSET $offset";
-$comments_result = mysqli_query($conn, $fetch_comments_query);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>E_hype Details</title>
-<link rel="stylesheet" href="../E-hype/E_hype_design/E_hype_details.css">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rate Details</title>
+    <style>
+        .rating {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: center;
+        }
+        .star {
+            cursor: pointer;
+            text-shadow: 1px 1px 1px #000;
+        }
+        input[type=radio] {
+            display: none;
+        }
+        label:before {
+            content: '★';
+            color: gray;
+        }
+        input[type=radio]:checked ~ label:before {
+            color: gold;
+        }
+    </style>
 </head>
 <body>
 
-<div class="E_hype-details">
-  <h1><?php echo $E_hype_title; ?></h1>
-  <!-- E_hype Thumbnail -->
-  <img src="<?php echo $thumbnail_url; ?>" alt="<?php echo $E_hype_title; ?>">
-  
-  <!-- Rating and Comment Section -->
-  <div class="rate-comment-section">
-    <form action="" method="post">
-      <div class="rating">
-        <!-- Rating Section -->
-        <input type="radio" id="star5" name="rating" value="5">
-        <label for="star5">&#9733;</label>
-        <input type="radio" id="star4" name="rating" value="4">
-        <label for="star4">&#9733;</label>
-        <input type="radio" id="star3" name="rating" value="3">
-        <label for="star3">&#9733;</label>
-        <input type="radio" id="star2" name="rating" value="2">
-        <label for="star2">&#9733;</label>
-        <input type="radio" id="star1" name="rating" value="1">
-        <label for="star1">&#9733;</label>
-      </div>
-      <!-- Comment Section -->
-      <div class="comments">
-        <textarea name="comment_text" rows="2" cols="100" placeholder="Leave a comment"></textarea><br>
-      </div>
-      <input type="submit" name="submit" value="Submit">
-    </form>
-    <div class="comments">
-      <!-- Comments/Reviews -->
-      <h2>Comments</h2>
-      <?php
-      while ($comment_row = mysqli_fetch_assoc($comments_result)) {
-          echo '<div class="comment">';
-          echo '<p>' . $comment_row['comment_text'] . '</p>';
-          echo '<p>Rating: ' . $comment_row['rating'] . '</p>';
-          echo '<p>Comment Date: ' . $comment_row['comment_date'] . '</p>';
-          echo '</div>';
-      }
-      ?>
-
-    </div>
     <?php
-    // Add pagination links
-    $total_comments_query = "SELECT COUNT(*) AS total_comments FROM E_hype_comments WHERE E_hype_id = $E_hype_id";
-    $total_comments_result = mysqli_query($conn, $total_comments_query);
-    $total_comments_row = mysqli_fetch_assoc($total_comments_result);
-    $total_comments = $total_comments_row['total_comments'];
-    $total_pages = ceil($total_comments / $commentsPerPage);
+    if(isset($_GET['Hype_Id'])) {
+        $id = mysqli_real_escape_string($connForEjie, $_GET['Hype_Id']);
+        $sql = "SELECT * FROM product WHERE id = '$id'";
+        $query = mysqli_query($connForEjie, $sql);
 
-    if ($total_pages > 1) {
-        echo "<div class='pagination'>";
-        if ($current_page > 1) {
-            echo "<a href='?E_hype_id=$E_hype_id&page=" . ($current_page - 1) . "'>Previous</a>";
-        }
-        for ($i = 1; $i <= $total_pages; $i++) {
-            echo "<a href='?E_hype_id=$E_hype_id&page=$i'>$i</a>";
-        }
-        if ($current_page < $total_pages) {
-            echo "<a href='?E_hype_id=$E_hype_id&page=" . ($current_page + 1) . "'>Next</a>";
-        }
-        echo "</div>";
-    }
+        if(mysqli_num_rows($query) > 0) {
+            $test = mysqli_fetch_assoc($query);
     ?>
-  </div>
-  <!-- Back button -->
-  <div class="back-button">
-      <a href="javascript:history.go(-1)">Back</a>
-  </div>
-</div>
+            <img src="../images/<?php echo $test['image']; ?>" style="width: 400px; height: 400px; margin-left: 400px;">
+            <h4 style="margin-left: 400px;"><?php echo $test['item_name'] ?></h4>
+            <h4 style="margin-left: 400px;"><?php echo $test['price'] ?></h4>
+            <h4 style="margin-left: 400px;"><?php echo $test['brand'] ?></h4>
+            <h4 style="margin-left: 400px;"><?php echo $test['item_type'] ?></h4>
+            <h4 style="margin-left: 400px;"><?php echo $test['seller_type'] ?></h4>
+
+            <form action="E_hype_details.php" method="post" style="margin-left: 400px;">
+                <div class="rating">
+                    <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5 stars" class="star"></label>
+                    <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 stars" class="star"></label>
+                    <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 stars" class="star"></label>
+                    <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 stars" class="star"></label>
+                    <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star" class="star"></label>
+                </div>
+                <input type="hidden" name="E_HYpe_Id" value="<?php echo $id; ?>">
+
+                <button type="submit">Submit Rating</button>
+            </form>
+             <!-- Back Button -->
+            <button onclick="history.back()">Back</button>
+    <?php
+        } else {
+           echo "Error: Item not found.";
+        }
+    } 
+    ?>
 
 </body>
 </html>
