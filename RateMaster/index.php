@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         switch ($_SESSION['option']) {
             case 'admin':
                 header('Location: ADMIN_FILES/' . $_SESSION['username'] . '.php'); // Redirect to admin's page
-                break;
+                break; 
             case 'buildrate':
                 header('Location: buildrate/buildratepage.php');
                 break;
@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                 header('Location: FileRate/fileratepage.php');
                 break;
             case 'irate':
-                header('Location: Irate/Irate_navbar.php');
+                header('Location: Irate/Iratepage.php');
                 break;
             default:
                 header('Location: index.php');
@@ -132,6 +132,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             <div class="input-group">
                 <label for="option">Options</label>
                 <select id="option" name="option" required>
+                    <option value="select options">Select Options</option>
                     <option value="buildrate">BuildRate</option>
                     <option value="hypebeast">E-HypeBeast</option>
                     <option value="filerate">FileRate</option>

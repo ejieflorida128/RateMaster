@@ -1,6 +1,6 @@
 <?php
 include("../connection.php");
-include("Irate_navbar.php");
+include("Irate_sidebar.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if(isset($_POST['item_id'], $_POST['rating'])) {

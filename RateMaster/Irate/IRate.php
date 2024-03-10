@@ -1,6 +1,6 @@
 <?php
 include("../connection.php");
-include("Irate_navbar.php");
+include("Irate_sidebar.php");
 ?>
 
 <!DOCTYPE html>

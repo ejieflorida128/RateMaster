@@ -1,6 +1,6 @@
 <?php
 include("../connection.php");
-include("buildrate_navbar.php");
+include("build_sidebar.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if(isset($_POST['building_id']) && isset($_POST['rating'])) {

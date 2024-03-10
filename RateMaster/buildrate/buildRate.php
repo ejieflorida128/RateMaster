@@ -1,6 +1,6 @@
 <?php
 include("../connection.php");
-include("buildrate_navbar.php");
+include("build_sidebar.php");
 ?>
 
 <!DOCTYPE html>

@@ -1,6 +1,6 @@
 <?php
 include("../connection.php");
-include("E_hype_navbar.php");
+include("E_hype_sidebar.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if(isset($_POST['E_HYpe_Id']) && isset($_POST['rating'])) {
