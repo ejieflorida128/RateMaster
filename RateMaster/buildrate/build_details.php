@@ -1,4 +1,5 @@
 <?php
+ob_start(); // Start output buffering
 include("../connection.php");
 include("build_sidebar.php");
 
@@ -96,3 +97,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 </body>
 </html>
+
+
+<?php
+ob_end_flush(); // Flush the output buffer and send the output to the browser
+?>

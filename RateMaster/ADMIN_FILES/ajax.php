@@ -87,7 +87,7 @@ if(isset($_POST['displayUserInFrate']) && $_POST['displayUserInFrate'] == true){
             <tbody>';
 
             
-            $sql = "SELECT * FROM users WHERE option = 'file_rate'";
+            $sql = "SELECT * FROM users WHERE option = 'filerate'";
 
             $result = mysqli_query($conn,$sql);
             $number = 1;

@@ -149,6 +149,7 @@ h1 {
         <use xlink:href="#file"></use>
       </svg>
       <a href="FileRating.php">File Rating</a>
+      <a href="E_Library.php">E_Library Rating</a>
     </li>
     
     
