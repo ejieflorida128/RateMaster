@@ -9,15 +9,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $rating = $_POST['rating'];
 
         // Update the item's rating in the items table
-        $update_query = "UPDATE propertylist SET rate = '$rating' WHERE id = $building_id";
-        $update_result = mysqli_query($connForEjie, $update_query);
+        $insertIntoRating = "INSERT INTO property_rating (property_id,rate) VALUES ($building_id,$rating)";
+        mysqli_query($connForEjie,$insertIntoRating);
 
         $txt = "A user rated an item in the Real Estate and Resources Management Platform!";
 
         $insertLog = "INSERT INTO log (type,message) VALUES ('build','$txt')";
         mysqli_query($conn,$insertLog);
 
-        if ($update_result) {
+        if ($insertIntoRating) {
             header('Location: buildRate.php');
             exit; // Stop further execution after redirection
         } else {

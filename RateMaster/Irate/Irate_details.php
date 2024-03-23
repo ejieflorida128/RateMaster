@@ -13,8 +13,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
        
 
         // Update the item's rating in the items table
-        $update_query = "UPDATE items SET rate = '$rating' WHERE id = '$item_id'";
-        $update_result = mysqli_query($connForEjie, $update_query);
+        // $update_query = "UPDATE items SET rate = '$rating' WHERE id = '$item_id'";
+        // $update_result = mysqli_query($connForEjie, $update_query);
+        $insertIntoRating = "INSERT INTO irate_ratings (item_id,rate) VALUES ($item_id,$rating)";
+        mysqli_query($connForEjie,$insertIntoRating);
 
         $txt = "A user Rate an item in the E-Cloth All in shopper Management System!";
 
@@ -24,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
       
 
-        if ($update_result) {
+        if ($insertIntoRating) {
             header('Location: Irate.php');
            
         } else {
