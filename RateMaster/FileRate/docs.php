@@ -8,19 +8,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $file_id = $_POST['id'];
         $rating = $_POST['rating'];
 
-        // Update the item's rating in the items table
-        $update_query = "UPDATE file_list SET rate = '$rating' WHERE id = $file_id";
-        $update_result = mysqli_query($connForEjie, $update_query);
+        // Retrieve existing total rating and total rating count from database
+        $select_query = "SELECT total_rating, rating_count FROM file_list WHERE id = $file_id";
+        $select_result = mysqli_query($connForEjie, $select_query);
 
-        if ($update_result) {
-            $txt = "A user rated a file in the File Resources Management System!";
-            $insertLog = "INSERT INTO log (type,message) VALUES ('filerate','$txt')";
-            mysqli_query($conn, $insertLog);
+        if ($select_result && mysqli_num_rows($select_result) > 0) {
+            $row = mysqli_fetch_assoc($select_result);
+            $total_rating = $row['total_rating'] + $rating;
+            $rating_count = $row['rating_count'] + 1;
 
-            header('Location: FileRating.php');
-            exit; // Stop further execution after redirection
+            // Update total rating and rating count in the database
+            $update_query = "UPDATE file_list SET total_rating = $total_rating, rating_count = $rating_count WHERE id = $file_id";
+            $update_result = mysqli_query($connForEjie, $update_query);
+
+            if ($update_result) {
+                $txt = "A user rated a file in the File Resources Management System!";
+                $insertLog = "INSERT INTO log (type,message) VALUES ('filerate','$txt')";
+                mysqli_query($conn, $insertLog);
+
+                header('Location: FileRating.php');
+                exit; // Stop further execution after redirection
+            } else {
+                echo "Error updating rating: " . mysqli_error($connForEjie);
+            }
         } else {
-            echo "Error updating rating: " . mysqli_error($connForEjie);
+            echo "Error retrieving file details.";
         }
     } 
 }
@@ -32,13 +44,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rate Details</title>
-<style>
+    <style>
         .rating {
             display: flex;
             flex-direction: row-reverse;
             font-size: 40px;
             justify-content: left;
-            
         }
         .star {
             cursor: pointer;
@@ -67,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             margin: 4px 2px;
             cursor: pointer;
             border-radius: 5px;
-            
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,2.5); /* Add shadow */
         }
     </style>
 </head>
@@ -80,12 +91,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $query = mysqli_query($connForEjie, $sql);
 
         if(mysqli_num_rows($query) > 0) {
-            $test = mysqli_fetch_assoc($query);
+            $file_details = mysqli_fetch_assoc($query);
+            $total_rating = $file_details['total_rating'];
+            $rating_count = $file_details['rating_count'];
     ?>
-            <img src="<?php echo $test['file']; ?>" style="width: 400px; height: 400px; margin-left: 400px; margin-top:10px;">
-            <h4 style="margin-left: 400px;"><?php echo $test['title'] ?></h4>
-            <h4 style="margin-left: 400px;"><?php echo $test['price'] ?></h4>
-            <h4 style="margin-left: 400px;"><?php echo $test['description'] ?></h4>
+            <img src="file/file.jpg<?php echo $file_details['file']; ?>" style="width: 400px; height: 400px; margin-left: 400px; margin-top:10px;">
+            <h4 style="margin-left: 400px; color: white;">Title: <?php echo $file_details['title'] ?></h4>
+            <h4 style="margin-left: 400px; color: white;">Price: $<?php echo $file_details['price'] ?></h4>
+            <h4 style="margin-left: 400px; color: white;">Description: <?php echo $file_details['description'] ?></h4>
+
+            <!-- Display average rating -->
+            <h4 style="margin-left: 400px; color: white;">Average Rating: <?php echo ($rating_count > 0) ? number_format($total_rating / $rating_count, 1) : 'N/A'; ?></h4>
 
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" style="margin-left: 400px;">
                 <div class="rating">
@@ -100,7 +116,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <button type="submit">Submit Rating</button>
             </form>
              <!-- Back Button -->
-            <button onclick="history.back()">Back</button>
+             <br>
+            <button onclick="history.back()" style="margin-left: 400px;  background-color: blue; color: white; border-radius: 5px;">Back</button>
     <?php
         } else {
            echo "Error: File not found.";

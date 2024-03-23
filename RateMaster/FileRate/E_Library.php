@@ -11,10 +11,13 @@ include("file_sidebar.php"); ?>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-   
-
-    <div class="container">
-        <h2>List of Books</h2>
+    <br>
+    <header>
+        <h1>List of Books</h1>
+    </header>
+    <br>
+    <div class="container" style="margin-top: -20px;">
+        
         <table class="table">
             <thead>
                 <tr>

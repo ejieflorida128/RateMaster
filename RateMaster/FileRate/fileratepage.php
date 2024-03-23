@@ -17,7 +17,7 @@ include("file_sidebar.php");
 
     <div class="wrapper">
         <main>
-                <h1 class = "rateText">Welcome to File Rate</h1>
+                <h1 class = "rateText">Welcome to I-Shared File Rate System</h1>
 
                 <div class="components">
                     
@@ -29,9 +29,9 @@ include("file_sidebar.php");
                                             <h1> File Rate</h1>
                                         </div>
                                         <div class="icon">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="rgb(73, 73, 73)" class="bi bi-kanban-fill" viewBox="0 0 16 16">
-                                                    <path d="M2.5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm5 2h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1m-5 1a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1zm9-1h1a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1"/>
-                                                </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="rgb(73, 73, 73)" class="bi bi-files" viewBox="0 0 16 16">
+                                            <path d="M13 0H6a2 2 0 0 0-2 2 2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 2 2 0 0 0 2-2V2a2 2 0 0 0-2-2m0 13V4a2 2 0 0 0-2-2H5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1M3 4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/>
+                                        </svg>
                                         </div>
                                         <div class="dis">
                                                 <h6>Click here to proceed to File Rate</h6>

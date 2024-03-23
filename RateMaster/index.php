@@ -2,25 +2,40 @@
 session_start();
 include("connection.php");
 
-// Function to validate username and password
+// Function to validate username, password, and option
 function validate_credentials($username, $password, $option, $conn) {
-    // You should implement your own logic to validate credentials here.
-    // This could involve querying a database, using APIs, or any other method of authentication.
+    // Sanitize user input to prevent SQL injection
+    $username = mysqli_real_escape_string($conn, $username);
 
     // For example:
     $sql = "SELECT * FROM users WHERE username = '$username'";
     $result = mysqli_query($conn, $sql);
+
     if ($result && mysqli_num_rows($result) > 0) {
         $user = mysqli_fetch_assoc($result);
         if (password_verify($password, $user['password_hash'])) {
-            $_SESSION['username'] = $username;
-            // Set option based on username
-            if ($username === 'build_admin' || $username === 'file_admin' || $username === 'Irate_admin' || $username === 'hype_admin') {
+            // Check if the selected option matches the user's option
+            if (($username === 'build_admin' || $username === 'file_admin' || $username === 'Irate_admin' || $username === 'hype_admin') && $option === 'admin') {
+                $_SESSION['username'] = $username;
                 $_SESSION['option'] = 'admin';
-            } else {
-                $_SESSION['option'] = $option;
+                return true;
+            } elseif ($option === 'buildrate' && $user['option'] === 'buildrate') {
+                $_SESSION['username'] = $username;
+                $_SESSION['option'] = 'buildrate';
+                return true;
+            } elseif ($option === 'hypebeast' && $user['option'] === 'hypebeast') {
+                $_SESSION['username'] = $username;
+                $_SESSION['option'] = 'hypebeast';
+                return true;
+            } elseif ($option === 'filerate' && $user['option'] === 'filerate') {
+                $_SESSION['username'] = $username;
+                $_SESSION['option'] = 'filerate';
+                return true;
+            } elseif ($option === 'irate' && $user['option'] === 'irate') {
+                $_SESSION['username'] = $username;
+                $_SESSION['option'] = 'irate';
+                return true;
             }
-            return true;
         }
     }
     return false;
@@ -39,31 +54,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         switch ($_SESSION['option']) {
             case 'admin':
                 header('Location: ADMIN_FILES/' . $_SESSION['username'] . '.php'); // Redirect to admin's page
-                break; 
+                exit;
             case 'buildrate':
                 header('Location: buildrate/buildratepage.php');
-                break;
+                exit;
             case 'hypebeast':
                 header('Location: E-hype/E_hypebeastpage.php');
-                break;
+                exit;
             case 'filerate':
                 header('Location: FileRate/fileratepage.php');
-                break;
+                exit;
             case 'irate':
                 header('Location: Irate/Iratepage.php');
-                break;
+                exit;
             default:
                 header('Location: index.php');
-                break;
+                exit;
         }
-        exit;
     } else {
         $_SESSION['error'] = 'Invalid username or password';
         header('Location: index.php');
         exit;
     }
 }
-
 // Register action
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'register') {
     $username = $_POST['username'];
@@ -132,7 +145,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             <div class="input-group">
                 <label for="option">Options</label>
                 <select id="option" name="option" required>
-                    <option value="select options">Select Options</option>
+                    <option value="admin">Admin</option>
                     <option value="buildrate">BuildRate</option>
                     <option value="hypebeast">E-HypeBeast</option>
                     <option value="filerate">FileRate</option>

@@ -13,9 +13,13 @@ include("E_hype_sidebar.php");
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+    <br>
+    <header>
+        <h1> E-Hypebeast List </h1>
+    </header>
    
 
-    <div class="container" style="margin-top: -10px;">
+    <div class="container" style="margin-top: -30px;">
         <div class="row">
             <?php
             $sql = "SELECT * FROM product";
@@ -27,8 +31,8 @@ include("E_hype_sidebar.php");
                 $id = $check['id'];
 
             ?>
-            <div class="col-md-18"style = "margin: -12px;">
-                <div class="card" style="width: 12rem; height: 26rem; margin: 30px; box-shadow: 0 4px 8px rgba(4, 4, 4, 1.1); position: relative; left: 100px;">
+            <div class="col-md-2"style = "margin: 12px;">
+                <div class="card" style="width: 12rem; height: 22rem; margin: 30px; box-shadow: 0 4px 8px rgba(4, 4, 4, 1.1); position: relative; left: 100px;">
                     <img src="../images/<?php echo $pic; ?>" class="card-img-top" style="height: 190px; width: 190px;">
                     <div class="card-body">
                         <h5 class="card-title" style = "font-size:12px;"><?php echo $name; ?></h5>

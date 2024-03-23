@@ -46,7 +46,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .rating {
             display: flex;
             flex-direction: row-reverse;
-            justify-content: center;
+            justify-content: left;
+            font-size: 40px;
         }
         .star {
             cursor: pointer;
@@ -62,6 +63,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         input[type=radio]:checked ~ label:before {
             color: gold;
         }
+          /* Style for the submit button */
+          button[type=submit] {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,2.5); /* Add shadow */
+        }
     </style>
 </head>
 <body>
@@ -76,11 +92,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $test = mysqli_fetch_assoc($query);
     ?>
             <img src="<?php echo $test['img']; ?>" style="width: 400px; height: 400px; margin-left: 400px;">
-            <h4 style="margin-left: 400px;"><?php echo $test['item_name'] ?></h4>
-            <h4 style="margin-left: 400px;"><?php echo $test['item_price'] ?></h4>
-            <h4 style="margin-left: 400px;"><?php echo $test['item_source'] ?></h4>
-            <h4 style="margin-left: 400px;"><?php echo $test['seller'] ?></h4>
-            <h4 style="margin-left: 400px;">Seller Id: <?php echo $test['SellerId'] ?></h4>
+            <h4 style="margin-left: 400px; color: white;">Name: <?php echo $test['item_name'] ?></h4>
+            <h4 style="margin-left: 400px; color: white;">Price: $<?php echo $test['item_price'] ?></h4>
+            <h4 style="margin-left: 400px; color: white;">Source: <?php echo $test['item_source'] ?></h4>
+            <h4 style="margin-left: 400px; color: white;">Seller: <?php echo $test['seller'] ?></h4>
+            <h4 style="margin-left: 400px; color: white;">Seller Id: <?php echo $test['SellerId'] ?></h4>
 
             <form action="Irate_details.php" method="post" style="margin-left: 400px;">
                 <div class="rating">
@@ -95,7 +111,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <button type="submit">Submit Rating</button>
             </form>
              <!-- Back Button -->
-            <button onclick="history.back()">Back</button>
+             <br>
+            <button onclick="history.back()" style="margin-left: 400px;  background-color: blue; color: white; border-radius: 5px;">Back</button>
     <?php
         } else {
            echo "Error: Item not found.";

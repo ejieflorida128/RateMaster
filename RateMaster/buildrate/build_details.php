@@ -38,7 +38,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .rating {
             display: flex;
             flex-direction: row-reverse;
-            justify-content: center;
+            justify-content: left;
+            font-size: 40px;
         }
         .star {
             cursor: pointer;
@@ -54,6 +55,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         input[type=radio]:checked ~ label:before {
             color: gold;
         }
+          /* Style for the submit button */
+          button[type=submit] {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,2.5); /* Add shadow */
+        }
     </style>
 </head>
 <body>
@@ -67,12 +83,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if(mysqli_num_rows($query) > 0) {
             $test = mysqli_fetch_assoc($query);
     ?>
+    <br>
             <img src="<?php echo $test['image1']; ?>" style="width: 400px; height: 400px; margin-left: 400px;">
-            <h4 style="margin-left: 400px;"><?php echo $test['title'] ?></h4>
-            <h4 style="margin-left: 400px;"><?php echo $test['price'] ?></h4>
-            <h4 style="margin-left: 400px;"><?php echo $test['state'] ?></h4>
-            <h4 style="margin-left: 400px;"><?php echo $test['agent'] ?></h4>
-            <h4 style="margin-left: 400px;"><?php echo $test['type'] ?></h4>
+            <h4 style="margin-left: 400px; color: white;">Title: <?php echo $test['title'] ?></h4>
+            <h4 style="margin-left: 400px; color: white;">Price: $<?php echo $test['price'] ?></h4>
+            <h4 style="margin-left: 400px; color: white;">State: <?php echo $test['state'] ?></h4>
+            <h4 style="margin-left: 400px; color: white;">Agent: <?php echo $test['agent'] ?></h4>
+            <h4 style="margin-left: 400px; color: white;">Type: <?php echo $test['type'] ?></h4>
 
             <form action="build_details.php" method="post" style="margin-left: 400px;">
                 <div class="rating">
@@ -87,7 +104,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <button type="submit">Submit Rating</button>
             </form>
              <!-- Back Button -->
-            <button onclick="history.back()">Back</button>
+             <br>
+            <button onclick="history.back()" style="margin-left: 400px;  background-color: blue; color: white; border-radius: 5px;">Back</button>
     <?php
         } else {
            echo "Error: Item not found.";

@@ -8,13 +8,17 @@ include("Irate_sidebar.php");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>List of Houses you Want to Sell</title>
+    <title>List of Clothes you Want to Rate</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+    <br>
+    <header>
+        <h1> I-Rate List </h1>
+    </header>
    
 
-    <div class="container" style="margin-top: -10px;">
+    <div class="container" style="margin-top: -30px;">
         <div class="row">
             <?php
             $sql = "SELECT * FROM items";
@@ -26,22 +30,15 @@ include("Irate_sidebar.php");
                 $id = $check['id'];
 
             ?>
-            <div class="col-md-18"style = "margin: -12px;">
-                <div class="card" style="width: 12rem; height: 26rem; margin: 30px; box-shadow: 0 4px 8px rgba(4, 4, 4, 1.1); position: relative; left: 100px;">
+            <div class="col-md-2" style="margin: 12px;">
+                <div class="card" style="width: 12rem; height: 22rem; margin: 30px; box-shadow: 0 4px 8px rgba(4, 4, 4, 1.1); position: relative; left: 100px;">
                     <img src="<?php echo $pic; ?>" class="card-img-top" style="height: 190px; width: 190px;">
                     <div class="card-body">
-                        <h5 class="card-title" style = "font-size:12px;"><?php echo $name; ?></h5>
-                        <h5 class="card-title" style = "font-size:12px;">$<?php echo $price; ?></h5>
+                        <h5 class="card-title" style="font-size:12px;"><?php echo $name; ?></h5>
+                        <h5 class="card-title" style="font-size:12px;">$<?php echo $price; ?></h5>
                             <div class="opt">
                                 <div class="sec1">
-                                            <!-- aria loblee butange ne ug kadtong rate rate na function aria dapita
-
-                                                                                    -ejie feb 28 2024
-
-                                        
-                                                
-                                        -->
-                                        <a href = 'Irate_details.php?item_id=<?php echo $id; ?>' class = "btn btn-success">Rate</a>
+                                    <a href='Irate_details.php?item_id=<?php echo $id; ?>' class="btn btn-success">Rate</a>
                                 </div>
                                 <div class="sec2">
 
@@ -57,7 +54,7 @@ include("Irate_sidebar.php");
     </div>
 
 
-    <div class="div" style = "margin-top: 60px;"></div>
+    <div class="div" style="margin-top: 60px;"></div>
 
     <!-- Bootstrap JS and jQuery (Optional) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

@@ -79,7 +79,7 @@
     @media screen and(min-width:600px) {
       width:32px;
     height:32px;
-left:-15px;
+    left:-15px;
     }
   }
 }
@@ -90,6 +90,7 @@ left:-15px;
 }
 
 body {
+  
   height: 100vh;
   background: radial-gradient(circle at 94.02% 88.03%, #54a4ff, transparent 100%),radial-gradient(circle at 25.99% 27.79%, #ff94fb, transparent 100%),radial-gradient(circle at 50% 50%, #000000, #000000 100%);
 }
@@ -109,7 +110,9 @@ h1 {
       </style>
 </head>
 <body>
+ 
 <svg style="display:none;">
+  
   <defs>
 
     <g id="home">
@@ -123,6 +126,12 @@ h1 {
     <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor" class="bi bi-files" viewBox="0 0 16 16">
       <path d="M13 0H6a2 2 0 0 0-2 2 2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 2 2 0 0 0 2-2V2a2 2 0 0 0-2-2m0 13V4a2 2 0 0 0-2-2H5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1M3 4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/>
     </svg>
+    </g>
+
+    <g id="book">
+   <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor" class="bi bi-book-fill" viewBox="0 0 16 16">
+  <path d="M8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783"/>
+</svg>
     </g>
 
     <g id="planner"  id = "logout">
@@ -149,7 +158,14 @@ h1 {
         <use xlink:href="#file"></use>
       </svg>
       <a href="FileRating.php">File Rating</a>
+      
+    </li>
+    <li class="nav__items ">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
+        <use xlink:href="#book"></use>
+      </svg>
       <a href="E_Library.php">E_Library Rating</a>
+      
     </li>
     
     
