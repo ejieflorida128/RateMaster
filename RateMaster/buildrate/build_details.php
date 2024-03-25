@@ -5,23 +5,41 @@ include("build_sidebar.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if(isset($_POST['building_id']) && isset($_POST['rating'])) {
+        $user = $_SESSION['username'];
         $building_id = $_POST['building_id'];
         $rating = $_POST['rating'];
 
-        // Update the item's rating in the items table
-        $insertIntoRating = "INSERT INTO property_rating (property_id,rate) VALUES ($building_id,$rating)";
-        mysqli_query($connForEjie,$insertIntoRating);
+        $checkForExistingUserThatRateThisItem = "SELECT * FROM property_rating WHERE user = '$user' AND property_id = $building_id";
+        $queryForChecking =  mysqli_query($connForEjie,$checkForExistingUserThatRateThisItem);
 
-        $txt = "A user rated an item in the Real Estate and Resources Management Platform!";
+        $check = 0;
 
-        $insertLog = "INSERT INTO log (type,message) VALUES ('build','$txt')";
-        mysqli_query($conn,$insertLog);
+        while($checkForExisting = mysqli_fetch_assoc($queryForChecking)){
+                $check = 1;
+        }
 
-        if ($insertIntoRating) {
-            header('Location: buildRate.php');
-            exit; // Stop further execution after redirection
-        } else {
-            echo "Error updating rating: " . mysqli_error($connForEjie);
+        if($check == 1){
+
+            // query ne sa Update]
+            $UpdateIntoRating = "UPDATE `property_rating` SET rate = $rating WHERE user = '$user' AND property_id = $building_id";
+            mysqli_query($connForEjie,$UpdateIntoRating);
+
+            $txt = "A user Update a Rating of in Building in the RealState Management System!";
+
+                $insertLog = "INSERT INTO log (type,message) VALUES ('build','$txt')";
+                mysqli_query($conn,$insertLog);
+                header('Location: buildRate.php');
+
+        }else{
+            // query ne sa Insert
+            $insertIntoRating = "INSERT INTO `property_rating` (property_id,rate,user) VALUES ('$building_id','$rating','$user')";
+            mysqli_query($connForEjie,$insertIntoRating);
+
+            $txt = "A user Rate an Building in the RealState Management System!";
+
+                $insertLog = "INSERT INTO log (type,message) VALUES ('build','$txt')";
+                mysqli_query($conn,$insertLog);
+                header('Location: buildRate.php');
         }
     } 
 }

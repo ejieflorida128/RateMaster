@@ -1,36 +1,48 @@
 <?php
+session_start();
 ob_start(); // Start output buffering
 include("../connection.php");
 include("Irate_sidebar.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if(isset($_POST['item_id'], $_POST['rating'])) {
+
+        $user = $_SESSION['username'];
         $item_id = mysqli_real_escape_string($connForEjie, $_POST['item_id']);
         $rating = mysqli_real_escape_string($connForEjie, $_POST['rating']);
 
         
+        $checkForExistingUserThatRateThisItem = "SELECT * FROM irate_ratings WHERE user = '$user' AND item_id = $item_id";
+        $queryForChecking =  mysqli_query($connForEjie,$checkForExistingUserThatRateThisItem);
 
-       
+        $check = 0;
 
-        // Update the item's rating in the items table
-        // $update_query = "UPDATE items SET rate = '$rating' WHERE id = '$item_id'";
-        // $update_result = mysqli_query($connForEjie, $update_query);
-        $insertIntoRating = "INSERT INTO irate_ratings (item_id,rate) VALUES ($item_id,$rating)";
-        mysqli_query($connForEjie,$insertIntoRating);
+        while($checkForExisting = mysqli_fetch_assoc($queryForChecking)){
+                $check = 1;
+        }
 
-        $txt = "A user Rate an item in the E-Cloth All in shopper Management System!";
+        if($check == 1){
 
-        $insertLog = "INSERT INTO log (type,message) VALUES ('irate','$txt')";
-        mysqli_query($conn,$insertLog);
+            // query ne sa Update]
+            $UpdateIntoRating = "UPDATE `irate_ratings` SET rate = $rating WHERE user = '$user' AND item_id = $item_id";
+            mysqli_query($connForEjie,$UpdateIntoRating);
 
-        
-      
+            $txt = "A user Update a Rating of in item in the E-Cloth All in shopper Management System!";
 
-        if ($insertIntoRating) {
-            header('Location: Irate.php');
-           
-        } else {
-            echo "Error updating rating: " . mysqli_error($connForEjie);
+                $insertLog = "INSERT INTO log (type,message) VALUES ('irate','$txt')";
+                mysqli_query($conn,$insertLog);
+                header('Location: Irate.php');
+
+        }else{
+            // query ne sa Insert
+            $insertIntoRating = "INSERT INTO `irate_ratings` (item_id,rate,user) VALUES ('$item_id','$rating','$user')";
+            mysqli_query($connForEjie,$insertIntoRating);
+
+            $txt = "A user Rate an item in the E-Cloth All in shopper Management System!";
+
+                $insertLog = "INSERT INTO log (type,message) VALUES ('irate','$txt')";
+                mysqli_query($conn,$insertLog);
+                header('Location: Irate.php');
         }
 
         
