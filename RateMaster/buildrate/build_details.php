@@ -1,4 +1,5 @@
 <?php
+session_start();
 ob_start(); // Start output buffering
 include("../connection.php");
 include("build_sidebar.php");
